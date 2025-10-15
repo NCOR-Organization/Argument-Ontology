@@ -1,0 +1,64 @@
+@prefix : <http://www.github/argumentsontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix test: <http://github.org/test#> .
+@prefix argumentsontology: <http://www.github/argO/2016/9/argumentsontology#> .
+@base <http://www.github/argumentsontology/> .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.github/argumentsontology/AA
+:AA rdf:type owl:NamedIndividual ,
+             :argument ;
+    :hasConclusion :AA3 ;
+    :hasPremise :AA1 ,
+                :AA2 .
+
+
+###  http://www.github/argumentsontology/AA1
+:AA1 rdf:type owl:NamedIndividual ,
+              :sentencecontent .
+
+
+###  http://www.github/argumentsontology/AA2
+:AA2 rdf:type owl:NamedIndividual ,
+              :statement .
+
+
+###  http://www.github/argumentsontology/AA3
+:AA3 rdf:type owl:NamedIndividual ,
+              :statement .
+
+
+###  http://www.github/argumentsontology/AB
+:AB rdf:type owl:NamedIndividual ,
+             :argument ;
+    :hasConclusion :AB3 ;
+    :hasPremise :AA1 ,
+                :AB2 .
+
+
+###  http://www.github/argumentsontology/AB2
+:AB2 rdf:type owl:NamedIndividual ,
+              :statement .
+
+
+###  http://www.github/argumentsontology/AB3
+:AB3 rdf:type owl:NamedIndividual ,
+              :statement .
+
+
+###  http://www.github/argumentsontology/AC
+:AC rdf:type owl:NamedIndividual ,
+             :argument ;
+    :hasConclusion :AB3 ;
+    :hasPremise :AA1 ,
+                :AA2 ,
+                :AA3 ,
+                :AB2 .
