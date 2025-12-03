@@ -1,6 +1,11 @@
+set(auto).  % Let Prover9 pick reasonable settings
+
+
 %*********************************
 %* BFO-FOL Axioms                *
 %*********************************
+
+formulas(assumptions).
 
 all x (Continuant(x) -> Entity(x)).
 
@@ -11,6 +16,8 @@ all x (MaterialEntity(x) -> IndependentContinuant(x)).
 all x (GenericallyDependentContinuant(x) -> Continuant(x)).
 
 all x (SpecificallyDependentContinuant(x) -> Continuant(x)).
+
+all x (Quality(x) -> SpecificallyDependentContinuant(x)).
 
 all x (Occurrent(x) -> Entity(x)).
 
@@ -106,15 +113,17 @@ all x(Argument(x) -> CollectionOfSentenceContents(x)).
 
 all x(ComplexArgument(x) -> Argument(x)). 
 
+all x(Argument(x) -> InformationContentEntity(x)). 
+
 %Any instance of ComplexArgument is an instance of Argument
 
 all x(SentenceContent(x) -> InformationContentEntity(x)).
 
 %Any instance of SentenceContent is an instance of InformationContentEntity
 
-all x(Statement(x) -> SentenceContent(x)).
+all x(Sentence(x) -> Expression(x)).
 
-%Any instance of Statement is an instance of SentenceContent.
+all x(Expression(x) -> Quality(x)).
 
 -(exists x(SentenceContent(x) & CollectionOfSentenceContents(x))).
 
@@ -155,6 +164,8 @@ all x(CollectionOfSentenceContents(x) -> exists y exists t(properContinuantPartO
 all x(Argument(x) -> exists y exists t(ActOfArgumentCreation(y) & TemporalRegion(t) & isCreatedBy(x,y,t))). 
 
 %Any argument entails the existence of an act of argument creation of which the argument is created at some time 
+
+all x(SentenceContent(x) -> exists y exists t(genericallyDependsOnAt(x,y,t))).
 
 all x(Argument(x) -> exists y exists z exists t((premiseIn(y,x,t) | suppositionIn(y,x,t)) & conclusionIn(z,x,t) & all u(conclusionIn(u,x,t)-> z=u))).
 
@@ -366,10 +377,6 @@ all x all y all t((ComplexArgument(x) & conclusionIn(y,x,t))-> exists z(properCo
 
 %If x is a conclusion in a complex argument then x is a conclusion in a proper part of the complex
 
-all x all y all z all t((ActOfArgumentCreation(x) & ComplexArgument(y) & isCreatedBy(y,x,t) & Argument(z) & properContinuantPartOfAt(z,y,t)) -> exists w(ActOfArgumentCreation(w) & isCreatedBy(z,w,t) & occurrentPartOf(w,x))).  
-
-%Creation of complex arguments entails creation of arguments relevantly linked to complex and creation act
-
 all x(ComplexArgument(x) -> exists y exists t(properContinuantPartOfAt(y,x,t) & (Argument(y) | ComplexArgument(y) | SentenceContent(y)))). 
 
 %Complex arguments have argument, complex argument, or sentence content parts
@@ -383,4 +390,12 @@ all x(Argument(x) -> exists y exists t(ActOfArgumentCreation(y) & TemporalRegion
 
 %Any argument entails the existence of an act of argument creation of which the argument is created at some time 
 
+end_of_list.
 
+formulas(goals).
+
+all x all y all z all t((ActOfArgumentCreation(x) & ComplexArgument(y) & isCreatedBy(y,x,t) & Argument(z) & properContinuantPartOfAt(z,y,t)) -> exists w(ActOfArgumentCreation(w) & isCreatedBy(z,w,t) & occurrentPartOf(w,x))).  
+
+%Creation of complex arguments entails creation of arguments relevantly linked to complex and creation act
+
+end_of_list.
